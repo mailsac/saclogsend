@@ -19,11 +19,15 @@ var syslogNet = flag.String("syslog", "127.0.0.1:514", "net location of a syslog
 
 var slog *saclogsend.Slog
 
-slog, err = saclogsend.New("inbound", *syslogNet)
-if err != nil {
-  slog.Err("failed connecting to syslog, %s", err.Error())
-} else {
-  slog.Info("syslog connected:" + *syslogNet)
+func main() {
+  flag.Parse()
+  var err error
+  slog, err = saclogsend.New("inbound", *syslogNet)
+  if err != nil {
+    slog.Err("failed connecting to syslog, %s", err.Error())
+  } else {
+    slog.Info("syslog connected:" + *syslogNet)
+  }
 }
 ```
 
